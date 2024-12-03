@@ -113,17 +113,17 @@ $keys = generate_keys($p, $q);
 $public_key = $keys['public'];
 $private_key = $keys['private'];
 
-echo "Public Key: " . json_encode($public_key) . "\n";
-echo "Private Key: " . json_encode($private_key) . "\n";
+// echo "Public Key: " . json_encode($public_key) . "\n";
+// echo "Private Key: " . json_encode($private_key) . "\n";
 
 // Plaintext
-$plaintext = "SBGH80166JHY78";
-echo "Plaintext: " . $plaintext . "\n";
+// $plaintext = "SBGH80166JHY78";
+// echo "Plaintext: " . $plaintext . "\n";
 
 // Enkripsi
-$ciphertext = encrypt($plaintext, $public_key);
-echo "Ciphertext: " . json_encode($ciphertext) . "\n";
+// $ciphertext = encrypt($plaintext, $public_key);
+// echo "Ciphertext: " . json_encode($ciphertext) . "\n";
 
 // Dekripsi
-$decrypted_text = decrypt($ciphertext, $private_key);
-echo "Decrypted Text: " . $decrypted_text . "\n";
+// $decrypted_text = decrypt($ciphertext, $private_key);
+// echo "Decrypted Text: " . $decrypted_text . "\n";
