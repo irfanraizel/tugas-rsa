@@ -12,7 +12,7 @@
     <div class="container">
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid d-flex justify-content-left">
-                <a class="navbar-brand d-flex align-items-center" href="#">
+                <a class="navbar-brand d-flex align-items-center" href="index.php">
                     <img src="img/ecom.jpg" alt="Logo" width="50" class="d-inline-block align-text-top">
                     <h3 class="fw-bold fs-1" style="color: #4eb9cf;">Toko Bangun Jaya</h3>
                 </a>

@@ -1,35 +1,43 @@
 <?php
-// Informasi koneksi ke database
-$servername = "localhost"; // Ganti dengan nama server Anda
-$username = "root";        // Ganti dengan username database Anda
-$password = "";            // Ganti dengan password database Anda
-$dbname = "tugas_rsa";    // Ganti dengan nama database Anda
 
-// Membuat koneksi
+include("function.php");
+
+// Database connection info
+$servername = "localhost"; // Replace with your server name
+$username = "root";        // Replace with your database username
+$password = "";            // Replace with your database password
+$dbname = "tugas_rsa";     // Replace with your database name
+
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Cek koneksi
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Ambil data dari formulir
+// Process form data
 if (isset($_POST['submit'])) {
     $ref = $_POST['no_ref'];
-    $rek = $_POST['no_rek'];
-    $nama = $_POST['nama'];
+    $rek = json_encode(encrypt($_POST['no_rek'], $public_key)); // Encrypt account number
+    $nama = json_encode(encrypt($_POST['nama'], $public_key)); // Encrypt name
     $nominal = $_POST['nominal'];
 
-    // Query untuk menyisipkan data ke tabel
-    $sql = "INSERT INTO transaksi (no_ref, no_rekening, nama, nominal) VALUES ('$ref', $rek, '$nama', $nominal)";
+    // Prepare and bind the SQL statement
+    $stmt = $conn->prepare("INSERT INTO transaksi (no_ref, no_rekening, nama, nominal) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("sssi", $ref, $rek, $nama, $nominal);
 
-    //Eksekusi query
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Data berhasil disimpan.')</script>";
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "<script>alert('Data berhasil disimpan.')window.location.href='index.php'
+        </script>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $stmt->error;
     }
+
+    // Close the statement
+    $stmt->close();
 }
 
-// Tutup koneksi
+// Close the connection
 $conn->close();

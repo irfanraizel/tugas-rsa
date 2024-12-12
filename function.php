@@ -62,7 +62,7 @@ function generate_keys($p, $q)
     $phi = ($p - 1) * ($q - 1); // φ(n) = (p-1)(q-1)
 
     // Pilih e (1 < e < φ(n)) dan coprime dengan φ(n)
-    $e = 17;
+    $e = 3;
     while ($e < $phi) {
         if (gcd($e, $phi) == 1) {
             break;
