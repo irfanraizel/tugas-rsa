@@ -1,7 +1,3 @@
-<?php
-include("koneksi.php");
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +44,7 @@ include("koneksi.php");
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-2" href="#">Toko Bangun Jaya</a>
+            <a class="navbar-brand" href="#">Toko Bangun Jaya</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -58,16 +54,13 @@ include("koneksi.php");
                         <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Produk</a>
+                        <a class="nav-link" href="#produk">Produk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang</a>
+                        <a class="nav-link" href="#tentang">Tentang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kontak</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <a class="nav-link" href="#kontak">Kontak</a>
                     </li>
                 </ul>
             </div>
@@ -84,42 +77,39 @@ include("koneksi.php");
     </div>
 
     <!-- Produk Section -->
-    <?php
-    // query
-    $sql = "SELECT * FROM barang";
-    $result = $conn->query($sql);
-
-    ?>
-    <!-- Produk Section -->
     <div class="container mt-5" id="produk">
         <h2 class="text-center mb-4">Produk Kami</h2>
         <div class="row g-4">
-            <?php
-            // Periksa apakah ada data yang ditemukan
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-            ?>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <!-- Gambar Barang -->
-                            <img src="img/<?php echo $row['gambar']; ?>" class="card-img-top" alt="<?php echo $row['nama_barang']; ?>">
-                            <div class="card-body">
-                                <!-- Nama Barang -->
-                                <h5 class="card-title"><?php echo $row['nama_barang']; ?></h5>
-                                <!-- Deskripsi Barang -->
-                                <p class="card-text"><?php echo $row['deskripsi']; ?></p>
-                                <!-- Harga Barang -->
-                                <p class="card-text"><strong>Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></strong></p>
-                                <a href="detail.php?id=<?php echo $row['id_barang']; ?>" class="btn btn-primary">Beli Sekarang</a>
-                            </div>
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Produk 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Semen</h5>
+                        <p class="card-text">Kualitas terbaik untuk segala kebutuhan konstruksi Anda.</p>
+                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
                     </div>
-            <?php
-                }
-            } else {
-                echo "<p class='text-center'>Belum ada produk yang tersedia.</p>";
-            }
-            ?>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Produk 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Bata</h5>
+                        <p class="card-text">Bata merah dan ringan dengan harga terjangkau.</p>
+                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Produk 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Pasir</h5>
+                        <p class="card-text">Pasir berkualitas untuk berbagai kebutuhan bangunan.</p>
+                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -127,8 +117,8 @@ include("koneksi.php");
     <div class="container mt-5" id="tentang">
         <h2 class="text-center mb-4">Tentang Kami</h2>
         <div class="row align-items-center">
-            <div class="col-md-5">
-                <img src="https://noiadigital.com/wp-content/uploads/2022/10/IMG_8360-copy-1-scaled.jpg" class="img-fluid rounded" alt="Tentang Kami">
+            <div class="col-md-6">
+                <img src="https://via.placeholder.com/600x400" class="img-fluid rounded" alt="Tentang Kami">
             </div>
             <div class="col-md-6">
                 <h3>Toko Bangun Jaya</h3>
