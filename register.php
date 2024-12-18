@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $conn->real_escape_string($_POST["email"]);
     $password = $conn->real_escape_string($_POST["password"]);
     $confirm_password = $conn->real_escape_string($_POST["confirm_password"]);
+    $telp = $conn->real_escape_string($_POST["telp"]);
 
     // Validasi password
     if ($password !== $confirm_password) {
@@ -28,10 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     // Simpan data ke database
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+    $sql = "INSERT INTO users (username, email, password, telp) VALUES ('$username', '$email', '$hashed_password', '$telp')";
 
     if ($conn->query($sql) === TRUE) {
         echo "<script>alert('Pendaftaran Berhasil')</script>";
+        echo "<script>window.location='index.php'</script>";
     } else {
         echo "<script>alert('Pendaftaran Gagal')</script>";
     }
@@ -91,6 +93,10 @@ $conn->close();
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telp" class="form-label">No Telepon</label>
+                                <input type="telp" class="form-control" id="telp" name="telp" placeholder="Masukkan no telepon" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>

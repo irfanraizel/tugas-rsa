@@ -1,6 +1,6 @@
 <?php
 include("koneksi.php");
-
+include("function.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,14 +61,37 @@ include("koneksi.php");
                         <a class="nav-link" href="#">Produk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang</a>
+                        <a class="nav-link" href="#tentang">Tentang</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Kontak</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>
+
+                    <?php
+                    // Mulai session untuk mengecek user login
+                    session_start();
+
+                    // Cek apakah user sudah login
+                    $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+                    ?>
+                    <!-- Menu Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <?php if ($username): ?>
+                            <!-- Jika user login -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="logout.php">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://instagram.com/irfanrz2"><?= $username ?></a>
+                            </li>
+                        <?php else: ?>
+                            <!-- Jika user belum login -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="login.php">Login</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+
                 </ul>
             </div>
         </div>

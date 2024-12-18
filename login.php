@@ -1,5 +1,6 @@
 <?php
 include("koneksi.php");
+include("function.php");
 // Proses data form login
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $conn->real_escape_string($_POST["username"]);
@@ -18,13 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             session_start();
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["username"] = $user["username"];
+            $_SESSION["email"] = $user["email"];
+            $_SESSION["telp"] = $user["telp"];
 
             echo "<script>alert('Berhasil Login')</script>";
+            echo "<script>window.location = 'index.php'</script>";
         } else {
-            echo "Password salah! <a href='login.php'>Coba lagi</a>";
         }
     } else {
-        echo "Username tidak ditemukan! <a href='login.php'>Coba lagi</a>";
+        echo "<script>alert('Login GAGAL!!')</script>";
+        echo "<script>window.location='login.php'</script>";
     }
 }
 

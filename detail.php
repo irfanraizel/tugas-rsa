@@ -1,6 +1,17 @@
 <?php
-
+include("koneksi.php");
+include("function.php");
 $time = time();
+
+session_start();
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$email = $_SESSION['email'];
+$telp = $_SESSION['telp'];
+
+if (!$username) {
+    echo "<script>alert('Silahkan Login Terlebih Dahulu!!')</script>";
+    echo "<script>window.location='index.php'</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,23 +59,14 @@ $time = time();
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Toko Bangun Jaya</a>
+            <a class="navbar-brand" href="<?= base_url() ?>">Toko Bangun Jaya</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#produk">Produk</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tentang">Tentang</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#kontak">Kontak</a>
+                        <a class="nav-link" href=""><?= $username ?></a>
                     </li>
                 </ul>
             </div>
@@ -76,29 +78,48 @@ $time = time();
         <h2 class="text-center mb-4">Checkout Produk</h2>
         <div class="row">
             <!-- Detail Produk -->
-            <div class="col-md-6">
+            <?php
+            // Ambil ID produk dari parameter URL
+            $id_barang = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+            // Query untuk mengambil detail barang
+            $sql = "SELECT * FROM barang WHERE id_barang = $id_barang";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                // Ambil data barang
+                $barang = $result->fetch_assoc();
+            } else {
+                die("Produk tidak ditemukan.");
+            }
+            ?>
+            <div class="col-md-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/600x400" class="card-img-top" alt="Produk">
+                    <img src="img/<?php echo $barang['gambar']; ?>" class="card-img-top" alt="<?php echo $barang['nama_barang']; ?>">
                     <div class="card-body">
-                        <h5 class="card-title">Semen</h5>
-                        <p class="card-text">Kualitas terbaik untuk segala kebutuhan konstruksi Anda.</p>
-                        <p><strong>Harga:</strong> Rp50.000</p>
-                        <p><strong>Kuantitas:</strong> 2</p>
-                        <p><strong>Total:</strong> Rp100.000</p>
+                        <h5 class="card-title"><?php echo $barang['nama_barang']; ?></h5>
+                        <p class="card-text"><?php echo $barang['deskripsi']; ?></p>
+                        <p><strong>Harga:</strong> Rp<?php echo number_format($barang['harga'], 0, ',', '.'); ?></p>
+                        <p><strong>Stok:</strong> <?php echo $barang['stok']; ?> pcs</p>
                     </div>
                 </div>
             </div>
 
+
             <!-- Form Checkout -->
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <form>
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap Anda">
+                        <input type="text" class="form-control" id="name" placeholder="<?= $username ?>" value="<?= $username ?>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda">
+                        <input type="email" class="form-control" id="email" placeholder="<?= $email ?>" value="<?= $email ?>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telp" class="form-label">No Telepon</label>
+                        <input type="telp" class="form-control" id="telp" placeholder="<?= $telp ?>" value="<?= $telp ?>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Alamat Pengiriman</label>
@@ -108,10 +129,17 @@ $time = time();
                         <label for="payment" class="form-label">Metode Pembayaran</label>
                         <select class="form-select" id="payment">
                             <option selected>Pilih metode pembayaran</option>
-                            <option value="1">Transfer Bank</option>
-                            <option value="2">COD (Bayar di Tempat)</option>
-                            <option value="3">Kartu Kredit</option>
+                            <option value="bca">Transfer Bank BCA</option>
+                            <option value="mandiri">Transfer Bank Mandiri</option>
+                            <option value="bri">Transfer Bank BRI</option>
+                            <option value="ovo">Transfer e-wallet (Ovo)</option>
+                            <option value="gopay">Transfer e-wallet (GoPay)</option>
+                            <option value="dana">Transfer e-wallet (Dana)</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="no_rek" class="form-label">No Rekening/e-wallet</label>
+                        <input type="no_rek" class="form-control" id="no_rek" placeholder="" value="">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
                 </form>

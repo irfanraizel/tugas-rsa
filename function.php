@@ -127,3 +127,20 @@ $private_key = $keys['private'];
 // Dekripsi
 // $decrypted_text = decrypt($ciphertext, $private_key);
 // echo "Decrypted Text: " . $decrypted_text . "\n";
+
+// Base URL Function
+function base_url($path = '')
+{
+    // Deteksi apakah server menggunakan HTTPS
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? "https" : "http";
+
+    // Ambil nama host dan direktori proyek
+    $host = $_SERVER['HTTP_HOST'];
+    $scriptDir = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+
+    // Gabungkan menjadi base URL
+    $baseUrl = $protocol . "://" . $host . $scriptDir;
+
+    // Kembalikan base URL dengan tambahan path jika ada
+    return $baseUrl . $path;
+}
