@@ -65,8 +65,60 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div id="manageBarang" class="content-section">
                     <h2 class="mt-4">Manage Barang</h2>
-                    <p>Di sini Anda dapat mengelola data barang.</p>
+                    <button type="button" class="btn btn-primary my-2">Tambah Barang</button>
                     <!-- Tambahkan konten manajemen barang -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="bg-primary-subtle">No</th>
+                                <th class="bg-primary-subtle">Nama Barang</th>
+                                <th class="bg-primary-subtle">Deskripsi</th>
+                                <th class="bg-primary-subtle">Harga</th>
+                                <th class="bg-primary-subtle">Stok</th>
+                                <th class="bg-primary-subtle">Gambar</th>
+                                <th class="bg-primary-subtle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Include koneksi dan fungsi dekripsi
+                            include("koneksi.php");
+                            include("function.php");
+
+                            // Query untuk mengambil data transaksi
+                            $sql = "SELECT id, nama_barang, deskripsi, harga, stok, gambar FROM barang";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                $no = 1; // Nomor urut
+                                while ($row = $result->fetch_assoc()) {
+                                    $id = $row['id'];
+                                    $nama_barang = $row['nama_barang'];
+                                    $deskripsi = $row['deskripsi'];
+                                    $harga = $row['harga'];
+                                    $stok = $row['stok'];
+                                    $gambar = $row['gambar'];
+
+                                    echo "<tr>
+                                    <td>$no</td>
+                                    <td>$nama_barang</td>
+                                    <td>$deskripsi</td>
+                                    <td>$harga</td>
+                                    <td>$stok</td>
+                                    <td>
+                                        <img src='img/$gambar' alt='' class='rounded img-thumbnail' style='width:100px'>
+                                    </td>
+                                    <td>
+                                        <button type='button' class='btn btn-success mb-2' style='width:70px'>Edit</button>
+                                        <button type='button' class='btn btn-danger' mt-2 style='width:70px'>Delete</button>
+                                    </td>
+                                </tr>";
+                                    $no++;
+                                }
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div id="transaksi" class="content-section" style="display: none;">
@@ -84,14 +136,14 @@
                                 <th class="bg-primary-subtle">Harga</th>
                                 <th class="bg-primary-subtle">Alamat</th>
                                 <th class="bg-primary-subtle">Metode</th>
-                                <th class="bg-primary-subtle">Created At</th>
+                                <th class="bg-primary-subtle">Waktu Transaksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             // Include koneksi dan fungsi dekripsi
-                            include("koneksi.php");
-                            include("function.php");
+                            //include("koneksi.php");
+                            //include("function.php");
 
                             // Query untuk mengambil data transaksi
                             $sql = "SELECT no_ref, no_rekening, nama_user, email, telp, nama_barang, harga, alamat, metode, created_at FROM transaksi";
@@ -193,6 +245,53 @@
                     <h2 class="mt-4">Manage User</h2>
                     <p>Di sini Anda dapat mengelola data pengguna.</p>
                     <!-- Tambahkan konten manajemen user -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="bg-primary-subtle">No</th>
+                                <th class="bg-primary-subtle">Username</th>
+                                <th class="bg-primary-subtle">Email</th>
+                                <th class="bg-primary-subtle">Telepon</th>
+                                <th class="bg-primary-subtle">Password</th>
+                                <th class="bg-primary-subtle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Include koneksi dan fungsi dekripsi
+                            include("koneksi.php");
+
+                            // Query untuk mengambil data transaksi
+                            $sql = "SELECT * FROM users";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                $no = 1; // Nomor urut
+                                while ($row = $result->fetch_assoc()) {
+                                    $id = $row['id'];
+                                    $username = $row['username'];
+                                    $email = $row['email'];
+                                    $telp = $row['telp'];
+                                    $password = $row['password'];
+
+                                    echo "<tr>
+                                    <td>$no</td>
+                                    <td>$username</td>
+                                    <td>$email</td>
+                                    <td>$telp</td>
+                                    <td>$password</td>
+                                    <td>
+                                        <button type='button' class='btn btn-success' style='width:70px'>Edit</button>
+                                        <button type='button' class='btn btn-danger' style='width:70px'>Delete</button>
+                                    </td>
+                                    </tr>";
+                                    $no++;
+                                }
+                            }
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </main>
         </div>

@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
         }
     } else if (($_POST['username'] == 'admin') && ($_POST['password'] == 'admin')) {
-        echo "<script>window.location='tes.php'</script>";
+        echo "<script>window.location='dashboard.php'</script>";
     } else {
         echo "<script>alert('Login GAGAL!!')</script>";
         echo "<script>window.location='login.php'</script>";
