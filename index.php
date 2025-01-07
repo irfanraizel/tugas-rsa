@@ -78,15 +78,15 @@ include("function.php");
                     <ul class="navbar-nav ms-auto">
                         <?php if ($username): ?>
                             <!-- Jika user login -->
-                            <li class="nav-item">
+                            <li class="nav-item btn btn-secondary">
                                 <a class="nav-link" href="logout.php">Logout</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://instagram.com/irfanrz2"><?= $username ?></a>
+                            <li class="nav-item btn btn-success">
+                                <a class="nav-link" href="#"><?= $username ?></a>
                             </li>
                         <?php else: ?>
                             <!-- Jika user belum login -->
-                            <li class="nav-item">
+                            <li class="nav-item btn btn-info">
                                 <a class="nav-link" href="login.php">Login</a>
                             </li>
                         <?php endif; ?>
@@ -133,7 +133,7 @@ include("function.php");
                                 <p class="card-text"><?php echo $row['deskripsi']; ?></p>
                                 <!-- Harga Barang -->
                                 <p class="card-text"><strong>Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></strong></p>
-                                <a href="detail.php?id=<?php echo $row['id_barang']; ?>" class="btn btn-primary">Beli Sekarang</a>
+                                <a href="detail.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Beli Sekarang</a>
                             </div>
                         </div>
                     </div>

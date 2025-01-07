@@ -1,39 +1,60 @@
 <?php
 
-function gcd($a, $b)
-{
-    while ($b != 0) {
-        $temp = $b;
-        $b = $a % $b;
-        $a = $temp;
+// Include koneksi dan fungsi enkripsi
+include("koneksi.php"); // Pastikan koneksi database sudah benar
+include("function.php"); // Pastikan file ini memuat fungsi encrypt dan kunci publik
+
+// Proses data dari form
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ambil data dari form
+    $ref = $_POST['no_ref'];
+    $rek = json_encode(encrypt($_POST['no_rek'], $public_key)); // Encrypt account number
+    $nama = json_encode(encrypt($_POST['name'], $public_key)); // Encrypt name
+    $email = json_encode(encrypt($_POST['email'], $public_key)); // Encrypt email
+    $telp = json_encode(encrypt($_POST['telp'], $public_key)); // Encrypt telp
+    $nama_barang = json_encode(encrypt($_POST['nama_barang'], $public_key)); // Encrypt nama barang
+    $harga = $_POST['harga'];
+    $alamat = json_encode(encrypt($_POST['alamat'], $public_key)); // Encrypt alamat
+    $metode = $_POST['metode'];
+
+    // SQL Insert ke database
+    $sql = "INSERT INTO transaksi (no_ref, no_rekening, nama_user, email, telp, nama_barang, harga, alamat, metode) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
     }
-    return $a;
-}
 
-function findCoprime($phi)
-{
-    for ($e = 2; $e < $phi; $e++) {
-        if (gcd($e, $phi) == 1) {
-            return $e; // Bilangan coprime pertama
-        }
+    // Binding parameter
+    $stmt->bind_param(
+        "ssssssiss", // Tipe data (s = string, i = integer)
+        $ref,
+        $rek,
+        $nama,
+        $email,
+        $telp,
+        $nama_barang,
+        $harga,
+        $alamat,
+        $metode
+    );
+
+    // Eksekusi query
+    if ($stmt->execute()) {
+        echo "<script>
+                alert('Data berhasil disimpan.');
+                window.location.href='index.php';
+              </script>";
+    } else {
+        echo "Error: " . $stmt->error;
     }
-    return null; // Jika tidak ada coprime
+
+    // Tutup statement
+    $stmt->close();
 }
 
-$p = 71;
-$q = 67;
-
-// Hitung n dan phi(n)
-$n = $p * $q;
-$phi = ($p - 1) * ($q - 1);
-
-echo "n = $n\n";
-echo "phi(n) = $phi\n";
-
-// Cari bilangan coprime (e)
-$e = findCoprime($phi);
-if ($e !== null) {
-    echo "Coprime e = $e\n";
-} else {
-    echo "Tidak ditemukan bilangan coprime.\n";
-}
+// Tutup koneksi
+$conn->close();

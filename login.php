@@ -71,12 +71,14 @@ $conn->close();
 </head>
 
 <body>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
+                        <p class="text-start">
+                            <a href="<?= base_url() ?>">Home</a>
+                        </p>
                         <h3 class="card-title text-center mb-4">Login Akun</h3>
                         <form action="login.php" method="POST">
                             <div class="mb-3">

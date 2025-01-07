@@ -1,4 +1,5 @@
 <?php
+include("function.php");
 // Koneksi ke database
 $host = "localhost";
 $user = "root";
@@ -84,6 +85,9 @@ $conn->close();
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
+                        <p>
+                            <a href="<?= base_url() ?>">Home</a>
+                        </p>
                         <h3 class="card-title text-center mb-4">Form Pendaftaran Akun</h3>
                         <form action="register.php" method="POST">
                             <div class="mb-3">

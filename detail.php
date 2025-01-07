@@ -83,7 +83,7 @@ if (!$username) {
             $id_barang = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
             // Query untuk mengambil detail barang
-            $sql = "SELECT * FROM barang WHERE id_barang = $id_barang";
+            $sql = "SELECT * FROM barang WHERE id = $id_barang";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -108,26 +108,29 @@ if (!$username) {
 
             <!-- Form Checkout -->
             <div class="col-md-5">
-                <form>
+                <form method="post" action="save.php">
+                    <input type="hidden" value="<?= $barang['nama_barang'] ?>" name="nama_barang">
+                    <input type="hidden" value="<?= $barang['harga'] ?>" name="harga">
+                    <input type="hidden" value="1401<?= $time ?>2024" name="no_ref">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="name" placeholder="<?= $username ?>" value="<?= $username ?>" disabled>
+                        <input type="text" class="form-control" id="name" placeholder="<?= $username ?>" value="<?= $username ?>" name="name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="<?= $email ?>" value="<?= $email ?>" disabled>
+                        <input type="email" class="form-control" id="email" placeholder="<?= $email ?>" value="<?= $email ?>" name="email">
                     </div>
                     <div class="mb-3">
                         <label for="telp" class="form-label">No Telepon</label>
-                        <input type="telp" class="form-control" id="telp" placeholder="<?= $telp ?>" value="<?= $telp ?>" disabled>
+                        <input type="telp" class="form-control" id="telp" placeholder="<?= $telp ?>" value="<?= $telp ?>" name="telp">
                     </div>
                     <div class="mb-3">
-                        <label for="address" class="form-label">Alamat Pengiriman</label>
-                        <textarea class="form-control" id="address" rows="3" placeholder="Masukkan alamat pengiriman"></textarea>
+                        <label for="alamat" class="form-label">Alamat Pengiriman</label>
+                        <textarea class="form-control" id="alamat" rows="3" placeholder="Masukkan alamat pengiriman" name="alamat"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="payment" class="form-label">Metode Pembayaran</label>
-                        <select class="form-select" id="payment">
+                        <select class="form-select" id="payment" name="metode">
                             <option selected>Pilih metode pembayaran</option>
                             <option value="bca">Transfer Bank BCA</option>
                             <option value="mandiri">Transfer Bank Mandiri</option>
@@ -139,7 +142,7 @@ if (!$username) {
                     </div>
                     <div class="mb-3">
                         <label for="no_rek" class="form-label">No Rekening/e-wallet</label>
-                        <input type="no_rek" class="form-control" id="no_rek" placeholder="" value="">
+                        <input type="no_rek" class="form-control" id="no_rek" placeholder="Masukkan no rek/e-wallet" value="" name="no_rek">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
                 </form>
@@ -156,6 +159,7 @@ if (!$username) {
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </script>
 </body>
 
 </html>
