@@ -65,7 +65,9 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div id="manageBarang" class="content-section">
                     <h2 class="mt-4">Manage Barang</h2>
-                    <button type="button" class="btn btn-primary my-2">Tambah Barang</button>
+                    <button type="button" class="btn btn-primary my-2">
+                        <a href="add.php" class="text-light text-decoration-none">Tambah Barang</a>
+                    </button>
                     <!-- Tambahkan konten manajemen barang -->
                     <table class="table table-bordered">
                         <thead>
