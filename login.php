@@ -22,10 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["email"] = $user["email"];
             $_SESSION["telp"] = $user["telp"];
 
-            echo "<script>alert('Berhasil Login')</script>";
+            echo "<script>alert('Berhasil Login!')</script>";
             echo "<script>window.location = 'index.php'</script>";
         } else {
         }
+    } else if (($_POST['username'] == 'admin') && ($_POST['password'] == 'admin')) {
+        echo "<script>window.location='tes.php'</script>";
     } else {
         echo "<script>alert('Login GAGAL!!')</script>";
         echo "<script>window.location='login.php'</script>";
@@ -99,6 +101,5 @@ $conn->close();
             </div>
         </div>
     </div>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
