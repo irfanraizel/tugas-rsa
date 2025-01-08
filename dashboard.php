@@ -245,7 +245,6 @@
 
                 <div id="manageUser" class="content-section" style="display: none;">
                     <h2 class="mt-4">Manage User</h2>
-                    <p>Di sini Anda dapat mengelola data pengguna.</p>
                     <!-- Tambahkan konten manajemen user -->
                     <table class="table table-bordered">
                         <thead>
