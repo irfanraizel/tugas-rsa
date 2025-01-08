@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
                 <div class="card">
                     <div class="card-body">
                         <p>
-                            <a href="<?= base_url() ?>">Home</a>
+                            <a href="dashboard.php">Back</a>
                         </p>
                         <h3 class="card-title text-center mb-4">Form Tambah Barang</h3>
                         <form action="add.php" method="POST" enctype="multipart/form-data">
