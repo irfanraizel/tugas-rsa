@@ -3,12 +3,7 @@ include("koneksi.php");
 include("function.php");
 
 if (isset($_POST['submit'])) {
-    print_r($nama_barang = $_POST['nama_barang']);
-    $deskripsi = $_POST['deskripsi'];
-    $harga = $_POST['harga'];
-    $stok = $_POST['stok'];
-    $kategori = $_POST['kategori'];
-    //print_r($gambar = $_POST['gambar']);
+    echo "<script>alert('fitur masih dalam pengembangan')</script>";
 }
 ?>
 <!DOCTYPE html>
